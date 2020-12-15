@@ -16,7 +16,7 @@ export default class Subscription extends React.Component {
     }
 
     componentDidMount() {
-        Axios.get('https://subscription-manager-server.herokuapp.com/user', {
+        Axios.get('https://subscription-manager-client.herokuapp.com/', {
             withCredentials: true,
         }).then(response => {
             console.log(response.data);
@@ -61,7 +61,7 @@ export default class Subscription extends React.Component {
     };
 
     onSubmit() {
-        Axios.post('https://subscription-manager-server.herokuapp.com/user', {
+        Axios.post('https://subscription-manager-client.herokuapp.com/', {
             subscriptionName: this.state.subscriptionName,
             subscriptionBillDate: this.state.subscriptionBillDate,
             subscriptionFrequency: this.state.subscriptionFrequency,
@@ -71,7 +71,7 @@ export default class Subscription extends React.Component {
         })
             .then(function () {
                 return Axios.get(
-                    'https://subscription-manager-server.herokuapp.com/user'
+                    'https://subscription-manager-client.herokuapp.com/'
                 );
             })
             .then(response => {

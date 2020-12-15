@@ -31,7 +31,7 @@ export default class CreateUser extends React.Component {
         }
 
         Axios.post(
-            'https://subscription-manager-server.herokuapp.com/user',
+            'https://subscription-manager-client.herokuapp.com/',
             this.state
         )
             .then(response => {

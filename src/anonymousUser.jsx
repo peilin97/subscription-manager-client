@@ -30,7 +30,7 @@ export default class AnonymousUser extends React.Component {
             return;
         }
 
-        Axios.post('http://localhost:3000/anonymous', this.state)
+        Axios.post('https://subscription-manager-client.herokuapp.com/', this.state)
             .then(response => {
                 this.setState({
                     redirect: '/subscription/',

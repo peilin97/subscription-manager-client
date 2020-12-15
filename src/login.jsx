@@ -20,7 +20,7 @@ export default class Login extends React.Component {
 
     onClick() {
         Axios.post(
-            'https://subscription-manager-server.herokuapp.com/user',
+            'https://subscription-manager-client.herokuapp.com/',
             this.state,
             { withCredentials: true }
         )
