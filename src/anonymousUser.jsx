@@ -2,7 +2,7 @@ import React from 'react';
 import Axios from 'axios';
 import { Link, Redirect } from 'react-router-dom';
 
-export default class CreateUser extends React.Component {
+export default class AnonymousUser extends React.Component {
     constructor(props) {
         super(props);
 
@@ -30,10 +30,7 @@ export default class CreateUser extends React.Component {
             return;
         }
 
-        Axios.post(
-            'https://subscription-manager-server.herokuapp.com/user',
-            this.state
-        )
+        Axios.post('http://localhost:3000/anonymous', this.state)
             .then(response => {
                 this.setState({
                     redirect: '/subscription/',
@@ -52,7 +49,7 @@ export default class CreateUser extends React.Component {
 
         return (
             <>
-                <h1>Create New User</h1>
+                <h1>Create Anonymous User</h1>
 
                 <div>
                     <label for="email">Email:</label>
@@ -92,7 +89,7 @@ export default class CreateUser extends React.Component {
                     />
                 </div>
 
-                <button onClick={() => this.onClick()}>Create User</button>
+                <button onClick={() => this.onClick()}>Create Anonymous</button>
 
                 <div>
                     <Link to="/">Login</Link>
