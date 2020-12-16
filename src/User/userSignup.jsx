@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import Axios from 'axios';
 import { useHistory } from 'react-router-dom';
 
-const URL = 'https://subscription-manager-server.herokuapp.com/user';
-// const URL = 'http://localhost:5000/user';
+// const URL = 'https://subscription-manager-server.herokuapp.com/user';
+const URL = 'http://localhost:5000/user';
 
 export default function UserSignup() {
     const history = useHistory();
@@ -16,6 +16,14 @@ export default function UserSignup() {
         if (password !== duplicatePassword) {
             // ADD ERROR MESSAGE HERE
             alert("Those passwords didn't match. Try again.");
+            return;
+        }
+        if (username === '') {
+            alert("username cannot be empty");
+            return;
+        }
+        if (email === '') {
+            alert("email cannot be empty");
             return;
         }
         Axios.post(
@@ -42,12 +50,9 @@ export default function UserSignup() {
                     alert(res.data.errors[0].message);
                     return;
                 }
-                // redirect to the admin main page
+                // redirect to the user main page
                 history.push({
                     pathname: '/user',
-                    state: {
-                        original: res.data.original,
-                    },
                 });
             })
             .catch(err => {
