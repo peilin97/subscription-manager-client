@@ -1,0 +1,5 @@
+.controlBtns{
+    display: flex;
+    position: fixed;
+    margin-top: 50%;
+}

@@ -6,6 +6,7 @@ export const userSlice = createSlice({
         username: '',
         email: '',
         subscriptions: '',
+        cover: '',
     },
     reducers: {
         setUsername: (state, action) => {
@@ -17,6 +18,9 @@ export const userSlice = createSlice({
         setSubscriptions: (state, action) => {
             state.subscriptions = action.payload;
         },
+        setCover: (state, action) => {
+            state.cover = action.payload;
+        }
     }
 });
 
@@ -24,10 +28,13 @@ export const {
     setUsername,
     setEmail,
     setSubscriptions,
+    setCover,
 } = userSlice.actions;
 
 export const selectUsername = state => state.user.username;
 export const selectEmail = state => state.user.email;
 export const selectSubscriptions = state => state.user.subscriptions;
+export const selectCover = state => state.user.cover;
+
 
 export default userSlice.reducer;

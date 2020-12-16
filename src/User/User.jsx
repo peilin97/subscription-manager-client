@@ -8,12 +8,14 @@ import {
     setSubscriptions,
     setUsername,
     selectEmail,
+    setCover,
 } from './userSlice.js';
 import Subscriptions from '../Subscription/subscriptions';
 import UserLogout from './userLogout';
 import Cover from '../cover/cover';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
+import './user.css';
 
 // const URL = 'https://subscription-manager-server.herokuapp.com/user';
 const URL = 'http://localhost:5000/user';
@@ -26,33 +28,32 @@ export default function User() {
     
     const dispatch = useDispatch();
     // check if a user is logged in or not
-    Axios.post(
-        URL,
-        {query: `query User {
-            user {
-                username
+    useEffect(()=> {
+        Axios.post(
+            URL,
+            {query: `query User {
+                user {
+                    username
+                }
+            }`,},
+            { withCredentials: true }
+        ).then(res => {
+            if (res.data.errors) {
+                // redirect to the login page
+                history.push({
+                    pathname: '/user/login',
+                });
+                // alert(res.data.errors[0].message);
+            } else {
+                setLoggedIn(true);
             }
-        }`,},
-        {withCredentials: true}
-    ).then(res => {
-        if (res.data.errors) {
-            // redirect to the login page
+        }).catch(err => {
             history.push({
-                pathname: '/user/login',
-                state: {
-                    original: res.data.original,
-                },
+                pathname: '/admin/login',
             });
-            // alert(res.data.errors[0].message);
-        } else {
-            setLoggedIn(true);
-        }
-    }).catch(err => {
-        history.push({
-            pathname: '/admin/login',
+            console.log(err.response);
         });
-        console.log(err.response);
-    });
+    }, []);
 
     useEffect(()=>{Axios.post(
         URL,
@@ -61,6 +62,7 @@ export default function User() {
                 getUser {
                 email
                 username
+                cover
                 subscriptions {id, name, billingDate, frequency, cost, category}
             }
         }`,
@@ -74,14 +76,14 @@ export default function User() {
             }
             dispatch(setUsername(res.data.data.getUser.username));
             dispatch(setEmail(res.data.data.getUser.email));
-            // setUsername(res.data.data.getUser.username);
-            // setEmail(res.data.data.getUser.email);
+            console.log(res.data.data.getUser.cover);
+            if(res.data.data.getUser.cover) {
+                console.log("cover not null");
+                dispatch(setCover(res.data.data.getUser.cover));
+            }
             let list = res.data.data.getUser.subscriptions;
             list.sort((a, b) => new Date(a.billingDate) - new Date(b.billingDate));
-            // console.log(list);
-            // setSubscriptions(list);
             dispatch(setSubscriptions(list));
-            // console.log(subscriptions);
         })
         .catch(err => {
             console.log(err.response);
@@ -113,12 +115,18 @@ export default function User() {
             {isLoggedIn &&
             <div>
                 <Cover />
-                <div>
-                    <button onClick={editProfile}>Edit Profile</button>
-                    <button onClick={changePassword}>Change Password</button>
-                    <UserLogout onClick={() => setLoggedIn(false)}/>
+                <div className="controlBtns">
+                    <button 
+                    className = "editProfileBtn btn"
+                    onClick={editProfile}>Edit Profile</button>
+                    <button 
+                    className = "changePasswordBtn btn"
+                    onClick={changePassword}>Change Password</button>
+                    <UserLogout
+                    className = "logoutBtn btn"
+                    onClick={() => setLoggedIn(false)}/>
                     <FontAwesomeIcon
-                        className = "fontAwesomeIcon"
+                        className = "fontAwesomeIcon createBtn btn"
                         icon={faPlusCircle}
                         onClick={createSub} />
                     <Subscriptions />
