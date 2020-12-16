@@ -20,7 +20,7 @@ export default class Subscription extends React.Component {
             withCredentials: true,
         }).then(response => {
             console.log(response.data);
-            this.setState({ pokemon: response.data });
+            this.setState({ subscription: response.data });
         });
     }
 
@@ -45,7 +45,7 @@ export default class Subscription extends React.Component {
             case 'YEARLY':
                 this.subscriptionFrequency = 'YEARLY';
                 break;
-            default:
+            case 'MONTHLY':
                 this.subscriptionFrequency = 'MONTHLY';
         }
     };
@@ -55,13 +55,13 @@ export default class Subscription extends React.Component {
             case 'DAILY':
                 this.subscriptionCategory = 'CONTENT';
                 break;
-            default:
+            case 'SERVICE':
                 this.subscriptionCategory = 'SERVICE';
         }
     };
 
     onSubmit() {
-        Axios.post('https://subscription-manager-client.herokuapp.com/', {
+        Axios.post('https://subscription-manager-server.herokuapp.com/user', {
             subscriptionName: this.state.subscriptionName,
             subscriptionBillDate: this.state.subscriptionBillDate,
             subscriptionFrequency: this.state.subscriptionFrequency,
@@ -71,7 +71,7 @@ export default class Subscription extends React.Component {
         })
             .then(function () {
                 return Axios.get(
-                    'https://subscription-manager-client.herokuapp.com/'
+                    'https://subscription-manager-server.herokuapp.com/user'
                 );
             })
             .then(response => {
@@ -93,28 +93,19 @@ export default class Subscription extends React.Component {
     render() {
         return (
             <>
-                <h1>Subscription List</h1>
-                <h2> List of Subscriptions</h2>
+                <h1>Subscriptions</h1>
+                <h2> Create a new Subscription</h2>
                 <div>
-                    {this.state.subscription.map(subscript => (
-                        <div>
-                            <span>{subscript.subscriptionName}</span>
-                            <span>{subscript.subscriptionBillDate}</span>
-                            <span>{subscript.subscriptionFrequency}</span>
-                            <span>{subscript.subscriptionCost}</span>
-                            <span>{subscript.subscriptionCategory}</span>
-                            <span>{subscript.subscriptionUserId}</span>
-                        </div>
-                    ))}
-                    <label for="name">Subscription Name:</label>
+                    <label htmlFor="name">Subscription Name:</label>
                     <input
                         id="name"
                         value={this.state.subscriptionName}
                         onChange={e =>
                             this.onChange('subscriptionName', e)
                         }></input>
+                    <div></div>
 
-                    <label for="name">Subscription Bill Date:</label>
+                    <label htmlFor="name">Subscription Bill Date:</label>
                     <input
                         id="name"
                         type="date"
@@ -122,8 +113,9 @@ export default class Subscription extends React.Component {
                         onChange={e =>
                             this.onChange('subscriptionBillDate', e)
                         }></input>
+                    <div></div>
 
-                    <label for="name">Subscription Frequency:</label>
+                    <label htmlFor="name">Subscription Frequency:</label>
                     <select
                         id="name"
                         value={this.state.subscriptionFreqEnum}
@@ -137,8 +129,9 @@ export default class Subscription extends React.Component {
                         <option value="HALFYEARLY">HALFYEARLY</option>
                         <option value="YEARLY">YEARLY</option>
                     </select>
+                    <div></div>
 
-                    <label for="name">Subscription Cost:</label>
+                    <label htmlFor="name">Subscription Cost:</label>
                     <input
                         id="name"
                         type="double"
@@ -146,8 +139,9 @@ export default class Subscription extends React.Component {
                         onChange={e =>
                             this.onChange('subscriptionCost', e)
                         }></input>
+                    <div></div>
 
-                    <label for="name">Subscription Category:</label>
+                    <label htmlFor="name">Subscription Category:</label>
                     <select
                         id="name"
                         value={this.state.subscriptionCatEnum}
@@ -155,8 +149,9 @@ export default class Subscription extends React.Component {
                         <option value="CONTENT">CONTENT</option>
                         <option value="SERVICE">SERVICE</option>
                     </select>
+                    <div></div>
 
-                    <button onClick={() => this.onSubmit()}>Submit</button>
+                    <button onClick={() => this.onSubmit()}>Create</button>
                 </div>
             </>
         );

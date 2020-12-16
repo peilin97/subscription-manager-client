@@ -31,7 +31,7 @@ export default class CreateUser extends React.Component {
         }
 
         Axios.post(
-            'https://subscription-manager-client.herokuapp.com/',
+            'https://subscription-manager-server.herokuapp.com/user',
             this.state
         )
             .then(response => {
@@ -55,7 +55,7 @@ export default class CreateUser extends React.Component {
                 <h1>Create New User</h1>
 
                 <div>
-                    <label for="email">Email:</label>
+                    <label htmlFor="email">Email:</label>
                     <input
                         id="email"
                         value={this.state.email}
@@ -64,7 +64,7 @@ export default class CreateUser extends React.Component {
                 </div>
 
                 <div>
-                    <label for="username">Username:</label>
+                    <label htmlFor="username">Username:</label>
                     <input
                         id="username"
                         value={this.state.username}
@@ -73,7 +73,7 @@ export default class CreateUser extends React.Component {
                 </div>
 
                 <div>
-                    <label for="password">Password:</label>
+                    <label htmlFor="password">Password:</label>
                     <input
                         id="password"
                         type="password"
@@ -83,7 +83,7 @@ export default class CreateUser extends React.Component {
                 </div>
 
                 <div>
-                    <label for="duplicatePassword">Confirm Password:</label>
+                    <label htmlFor="duplicatePassword">Confirm Password:</label>
                     <input
                         id="duplicatePassword"
                         type="password"
