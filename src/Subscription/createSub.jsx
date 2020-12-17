@@ -8,9 +8,6 @@ import {
 } from '../User/userSlice.js';
 import './subscriptions.css';
 
-// const URL = 'https://subscription-manager-server.herokuapp.com/user';
-// const URL = 'http://localhost:5000/user';
-
 export default function CreateSub() {
     const history = useHistory();
     const [name, setName] = useState('');

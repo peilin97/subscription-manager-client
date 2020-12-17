@@ -16,9 +16,6 @@ const unsplash = createApi({
     accessKey: process.env.REACT_APP_UNSPLASH_ACCESS_KEY,
 });
 
-// const URL = 'https://subscription-manager-server.herokuapp.com/user';
-// const URL = 'http://localhost:5000/user';
-
 // implement UnsplashAPI for users to search photos and change the cover
 export default function Cover() {
     const cover = useSelector(selectCover);
