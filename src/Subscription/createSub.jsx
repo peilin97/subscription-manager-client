@@ -8,7 +8,7 @@ import {
 } from '../User/userSlice.js';
 import './subscriptions.css';
 
-const URL = 'https://subscription-manager-server.herokuapp.com/user';
+// const URL = 'https://subscription-manager-server.herokuapp.com/user';
 // const URL = 'http://localhost:5000/user';
 
 export default function CreateSub() {
@@ -25,7 +25,7 @@ export default function CreateSub() {
     useEffect(()=> {
         if (!loggedIn) {
             Axios.post(
-                URL,
+                process.env.REACT_APP_USER_SERVER,
                 {query: `query User {
                     user {
                         username
@@ -56,7 +56,7 @@ export default function CreateSub() {
             return;
         }
         Axios.post(
-            URL,
+            process.env.REACT_APP_USER_SERVER,
             {
                 query: `mutation createSubscription(
                     $name: String!,

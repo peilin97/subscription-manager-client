@@ -7,9 +7,6 @@ import AdminLogout from './adminLogout';
 import SearchResult from './searchResult';
 import './admin.css';
 
-const URL = 'https://subscription-manager-server.herokuapp.com/admin';
-// const URL = 'http://localhost:5000/admin';
-
 export default function Administrator() {
 
     const history = useHistory();
@@ -20,7 +17,7 @@ export default function Administrator() {
     // check if an administrator is logged in or not
     useEffect(()=>{
         Axios.post(
-            URL,
+            process.env.REACT_APP_ADMIN_SERVER,
             {query: `query Administrator {
                 administrator {
                     username
@@ -46,7 +43,7 @@ export default function Administrator() {
 
     const onSearch = () => {
         Axios.post(
-            URL,
+            process.env.REACT_APP_ADMIN_SERVER,
             {query: `mutation FindUserByEmail($email: String!) {
                 findUser(userEmail: $email) {
                     username,

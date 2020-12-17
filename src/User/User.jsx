@@ -19,8 +19,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlusCircle, faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import './user.css';
 
-const URL = 'https://subscription-manager-server.herokuapp.com/user';
-// const URL = 'http://localhost:5000/user';
+// const URL = 'https://subscription-manager-server.herokuapp.com/user';
+const URL = 'http://localhost:5000/user';
 
 export default function User() {
     const history = useHistory();
@@ -35,7 +35,7 @@ export default function User() {
     useEffect(()=> {
         if (!loggedIn) {
             Axios.post(
-                URL,
+                process.env.REACT_APP_USER_SERVER,
                 {query: `query User {
                     user {
                         username
@@ -62,20 +62,20 @@ export default function User() {
     }, []);
 
     useEffect(()=>{Axios.post(
-        URL,
+        process.env.REACT_APP_USER_SERVER,
         {
             query: `mutation getUser{
                 getUser {
-                email
-                username
-                cover
-                subscriptions {id, name, billingDate, frequency, cost, category}
+                    email
+                    username
+                    cover
+                    subscriptions {
+                        id, name, billingDate, frequency, cost, category}
             }
         }`,
         },
         { withCredentials: true }
-    )
-        .then(res => {
+    ).then(res => {
             if (res.data.errors) {
                 console.log(res.data.errors);
             }
@@ -119,7 +119,7 @@ export default function User() {
     const logout = () => {
         dispatch(setLoggedIn(true));
         Axios.post(
-            URL,
+            process.env.REACT_APP_USER_SERVER,
             {
                 query: `mutation  LogOutUser {
                 logout

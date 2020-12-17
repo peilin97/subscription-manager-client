@@ -7,7 +7,7 @@ import {
 } from '../User/userSlice.js';
 import { useLocation, useHistory } from 'react-router-dom';
 
-const URL = 'https://subscription-manager-server.herokuapp.com/user';
+// const URL = 'https://subscription-manager-server.herokuapp.com/user';
 // const URL = 'http://localhost:5000/user';
 
 export default function UpdateSub() {
@@ -32,7 +32,7 @@ export default function UpdateSub() {
     useEffect(()=> {
         if (!loggedIn) {
             Axios.post(
-                URL,
+                process.env.REACT_APP_USER_SERVER,
                 {query: `query User {
                     user {
                         username
@@ -77,7 +77,7 @@ export default function UpdateSub() {
             return;
         }
         Axios.post(
-            URL,
+            process.env.REACT_APP_USER_SERVER,
             {
                 query: `mutation editSubscription(
                     $id: String!,

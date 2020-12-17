@@ -3,7 +3,7 @@ import Axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import Header from '../header/Header'
 
-const URL = 'https://subscription-manager-server.herokuapp.com/user';
+// const URL = 'https://subscription-manager-server.herokuapp.com/user';
 // const URL = 'http://localhost:5000/user';
 
 export default function UserLogin() {
@@ -13,7 +13,7 @@ export default function UserLogin() {
 
     const login = () => {
         Axios.post(
-            URL,
+            process.env.REACT_APP_USER_SERVER,
             {
                 query: `mutation LoginUser(
                 $email: String!,

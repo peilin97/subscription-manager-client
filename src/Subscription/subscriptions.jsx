@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt, faEdit } from '@fortawesome/free-solid-svg-icons';
 import './subscriptions.css';
 
-const URL = 'https://subscription-manager-server.herokuapp.com/user';
+// const URL = 'https://subscription-manager-server.herokuapp.com/user';
 // const URL = 'http://localhost:5000/user';
 
 // show all subscriptions sorted by billingdate
@@ -30,7 +30,7 @@ export default function Subscriptions() {
 
     const deleteItem = (id) => {
         Axios.post(
-            URL,
+            process.env.REACT_APP_USER_SERVER,
             {
                 query: `mutation deleteSubscription($id: String!) {
                     deleteSubscriptionToUser(id: $id) {

@@ -7,7 +7,7 @@ import {
     setLoggedIn,
 } from './userSlice.js';
 
-const URL = 'https://subscription-manager-server.herokuapp.com/user';
+// const URL = 'https://subscription-manager-server.herokuapp.com/user';
 // const URL = 'http://localhost:5000/user';
 
 export default function UserChangePassword() {
@@ -20,7 +20,7 @@ export default function UserChangePassword() {
     useEffect(()=> {
         if (!loggedIn) {
             Axios.post(
-                URL,
+                process.env.REACT_APP_USER_SERVER,
                 {query: `query User {
                     user {
                         username
@@ -47,7 +47,7 @@ export default function UserChangePassword() {
             return;
         }
         Axios.post(
-            URL,
+            process.env.REACT_APP_USER_SERVER,
             {
                 query: `mutation createUser($password: String!) {
                     changePassword(password: $password) {

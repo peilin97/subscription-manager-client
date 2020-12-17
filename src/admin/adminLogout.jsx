@@ -2,16 +2,13 @@ import React from 'react';
 import Axios from 'axios';
 import { useHistory } from 'react-router-dom';
 
-const URL = 'https://subscription-manager-server.herokuapp.com/admin';
-// const URL = 'http://localhost:5000/admin';
-
 export default function AdminLogout() {
 
     const history = useHistory();
 
     const logout = () => {
         Axios.post(
-            URL,
+            process.env.REACT_APP_ADMIN_SERVER,
             {query: `mutation  LogOutAdmin {
                 logout
             }`,},

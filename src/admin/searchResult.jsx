@@ -1,14 +1,11 @@
 import React from 'react';
 import Axios from 'axios';
 
-const URL = 'https://subscription-manager-server.herokuapp.com/admin';
-// const URL = 'http://localhost:5000/admin';
-
 export default function SearchResult(props) {
 
     const deleteUser = () => {
         Axios.post(
-            URL,
+            process.env.REACT_APP_ADMIN_SERVER,
             {query: `mutation DeleteUserByEmail($email: String!) {
                 deleteUser(userEmail: $email)
             }`,

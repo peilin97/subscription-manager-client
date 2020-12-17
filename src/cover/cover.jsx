@@ -17,7 +17,7 @@ const unsplash = createApi({
 });
 
 // const URL = 'https://subscription-manager-server.herokuapp.com/user';
-const URL = 'http://localhost:5000/user';
+// const URL = 'http://localhost:5000/user';
 
 // implement UnsplashAPI for users to search photos and change the cover
 export default function Cover() {
@@ -48,7 +48,7 @@ export default function Cover() {
                     // set url
                     dispatch(setCover(res.response.urls.regular));
                     // update on backend
-                    Axios.post(URL, {
+                    Axios.post(process.env.REACT_APP_USER_SERVER, {
                         query: `mutation AddCover(
                             $cover: String!,
                             ) {
@@ -122,7 +122,7 @@ export default function Cover() {
 
     const removeCover = () => {
         dispatch(setCover(''));
-        Axios.post(URL, {
+        Axios.post(process.env.REACT_APP_USER_SERVER, {
             query: `mutation RemoveCover{
                 removeCover{
                     cover
@@ -145,7 +145,7 @@ export default function Cover() {
 
     const changeCover = (photo) => {
         dispatch(setCover(photo.urls.regular));
-        Axios.post(URL, {
+        Axios.post(process.env.REACT_APP_USER_SERVER, {
             query: `mutation AddCover(
                 $cover: String!,
                 ) {

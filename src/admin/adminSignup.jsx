@@ -3,9 +3,6 @@ import Axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import Header from '../header/Header'
 
-const URL = 'https://subscription-manager-server.herokuapp.com/admin';
-// const URL = 'http://localhost:5000/admin';
-
 export default function AdminSignup() {
     const history = useHistory();
     const [email, setEmail] = useState('');
@@ -21,7 +18,7 @@ export default function AdminSignup() {
             return;
         }
         Axios.post(
-            URL,
+            process.env.REACT_APP_ADMIN_SERVER,
             {query: `mutation CreateAdmin(
                 $email: String!,
                 $username: String!,
