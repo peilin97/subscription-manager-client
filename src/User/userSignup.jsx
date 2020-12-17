@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
 import Axios from 'axios';
 import { useHistory } from 'react-router-dom';
-import Header from '../header/Header'
-
-// const URL = 'https://subscription-manager-server.herokuapp.com/user';
-// const URL = 'http://localhost:5000/user';
+import Header from '../header/Header';
 
 export default function UserSignup() {
     const history = useHistory();
@@ -20,11 +17,11 @@ export default function UserSignup() {
             return;
         }
         if (username === '') {
-            alert("username cannot be empty");
+            alert('username cannot be empty');
             return;
         }
         if (email === '') {
-            alert("email cannot be empty");
+            alert('email cannot be empty');
             return;
         }
         Axios.post(
@@ -43,9 +40,11 @@ export default function UserSignup() {
                     email: email,
                     username: username,
                     password: password,
-            }},
+                },
+            },
             { withCredentials: true }
-            ).then(res => {
+        )
+            .then(res => {
                 if (res.data.errors) {
                     console.log(res.data.errors);
                     alert(res.data.errors[0].message);
@@ -60,7 +59,8 @@ export default function UserSignup() {
                 setUsername('');
                 setPassword('');
                 setDuplicatePassword('');
-            }).catch(err => {
+            })
+            .catch(err => {
                 console.log(err.response.data);
             });
     };
@@ -68,44 +68,54 @@ export default function UserSignup() {
     return (
         <div>
             <Header />
-        <div className="authContainer">
-            <div className="form">
-                <label htmlFor="email" className="small">Email</label>
-                <input
-                    id="email"
-                    value={email}
-                    onChange={e => setEmail(e.target.value)}
-                />
-            </div>
-            <div className="form">
-                <label htmlFor="username" className="small">Username</label>
-                <input
-                    id="username"
-                    value={username}
-                    onChange={e => setUsername(e.target.value)}
-                />
-            </div>
-            <div className="form">
-                <label htmlFor="password" className="small">Password</label>
-                <input
-                    id="password"
-                    type="password"
-                    value={password}
-                    onChange={e => setPassword(e.target.value)}
-                />
-            </div>
-            <div className="form">
-                <label htmlFor="duplicatePassword" className="small">Confirm Password</label>
-                <input
-                    id="duplicatePassword"
-                    type="password"
-                    value={duplicatePassword}
-                    onChange={e => setDuplicatePassword(e.target.value)}
-                />
-            </div>
+            <div className="authContainer">
+                <div className="form">
+                    <label htmlFor="email" className="small">
+                        Email
+                    </label>
+                    <input
+                        id="email"
+                        value={email}
+                        onChange={e => setEmail(e.target.value)}
+                    />
+                </div>
+                <div className="form">
+                    <label htmlFor="username" className="small">
+                        Username
+                    </label>
+                    <input
+                        id="username"
+                        value={username}
+                        onChange={e => setUsername(e.target.value)}
+                    />
+                </div>
+                <div className="form">
+                    <label htmlFor="password" className="small">
+                        Password
+                    </label>
+                    <input
+                        id="password"
+                        type="password"
+                        value={password}
+                        onChange={e => setPassword(e.target.value)}
+                    />
+                </div>
+                <div className="form">
+                    <label htmlFor="duplicatePassword" className="small">
+                        Confirm Password
+                    </label>
+                    <input
+                        id="duplicatePassword"
+                        type="password"
+                        value={duplicatePassword}
+                        onChange={e => setDuplicatePassword(e.target.value)}
+                    />
+                </div>
 
-            <button onClick={signUp} className="authBtn small">Sign Up</button>
-        </div>
+                <button onClick={signUp} className="authBtn small">
+                    Sign Up
+                </button>
+            </div>
         </div>
     );
 }

@@ -2,10 +2,7 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import Axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
-import {
-    selectSubscriptions,
-    setSubscriptions,
-} from '../User/userSlice';
+import { selectSubscriptions, setSubscriptions } from '../User/userSlice';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt, faEdit } from '@fortawesome/free-solid-svg-icons';
 import './subscriptions.css';
@@ -16,16 +13,16 @@ export default function Subscriptions() {
     const list = useSelector(selectSubscriptions);
     const dispatch = useDispatch();
 
-    const editItem = (item) => {
+    const editItem = item => {
         history.push({
-            pathname:'/subscription/update',
+            pathname: '/subscription/update',
             state: {
                 sub: item,
-            }
+            },
         });
     };
 
-    const deleteItem = (id) => {
+    const deleteItem = id => {
         Axios.post(
             process.env.REACT_APP_USER_SERVER,
             {
@@ -39,44 +36,51 @@ export default function Subscriptions() {
                 },
             },
             { withCredentials: true }
-        ).then(res => {
-            console.log(res.data);
-            if (res.data.errors) {
-                console.log(res.data.errors);
-                return;
-            }
-            let list = res.data.data.deleteSubscriptionToUser.subscriptions;
-            list.sort((a, b) => new Date(a.billingDate) - new Date(b.billingDate));
-            dispatch(setSubscriptions(list));
-        })
-        .catch(err => {
-            console.log(err.response);
-        });
-    }
+        )
+            .then(res => {
+                console.log(res.data);
+                if (res.data.errors) {
+                    console.log(res.data.errors);
+                    return;
+                }
+                let list = res.data.data.deleteSubscriptionToUser.subscriptions;
+                list.sort(
+                    (a, b) => new Date(a.billingDate) - new Date(b.billingDate)
+                );
+                dispatch(setSubscriptions(list));
+            })
+            .catch(err => {
+                console.log(err.response);
+            });
+    };
 
     return (
-    <div className="subscriptions">
-        {list && list.map(item => (
-            <div id={item.id} className="subItem">
-                <div className="small">{item.name}</div>
-                <div className="small">{"$ " + item.cost}</div>
-                <div className="small">{item.billingDate}</div>
-                <div className="hide small">{item.frequency}</div>
-                <div className="hide small">{item.category}</div>
-                <div className="hide small">{item.content}</div>
-                <button><FontAwesomeIcon
-                className = "fontAwesomeIcon small"
-                icon={faEdit}
-                onClick={() => editItem(item)}
-                /></button>
-                <button><FontAwesomeIcon
-                    className = "fontAwesomeIcon small"
-                    icon={faTrashAlt}
-                    onClick={() => deleteItem(item.id)}
-                /></button>
-                
-            </div>
-        ))}
-    </div>
-    )
+        <div className="subscriptions">
+            {list &&
+                list.map(item => (
+                    <div id={item.id} className="subItem">
+                        <div className="small">{item.name}</div>
+                        <div className="small">{'$ ' + item.cost}</div>
+                        <div className="small">{item.billingDate}</div>
+                        <div className="hide small">{item.frequency}</div>
+                        <div className="hide small">{item.category}</div>
+                        <div className="hide small">{item.content}</div>
+                        <button>
+                            <FontAwesomeIcon
+                                className="fontAwesomeIcon small"
+                                icon={faEdit}
+                                onClick={() => editItem(item)}
+                            />
+                        </button>
+                        <button>
+                            <FontAwesomeIcon
+                                className="fontAwesomeIcon small"
+                                icon={faTrashAlt}
+                                onClick={() => deleteItem(item.id)}
+                            />
+                        </button>
+                    </div>
+                ))}
+        </div>
+    );
 }

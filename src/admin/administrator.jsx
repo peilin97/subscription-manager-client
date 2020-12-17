@@ -8,43 +8,47 @@ import SearchResult from './searchResult';
 import './admin.css';
 
 export default function Administrator() {
-
     const history = useHistory();
     const [search, setSearch] = useState('');
     const [isLoggedIn, setLoggedIn] = useState(false);
     const [searchResult, setSearchResult] = useState(null);
 
     // check if an administrator is logged in or not
-    useEffect(()=>{
+    useEffect(() => {
         Axios.post(
             process.env.REACT_APP_ADMIN_SERVER,
-            {query: `query Administrator {
+            {
+                query: `query Administrator {
                 administrator {
                     username
                 }
-            }`,},
-            {withCredentials: true}
-        ).then(res => {
-            if (res.data.errors) {
-                // redirect to the login page
+            }`,
+            },
+            { withCredentials: true }
+        )
+            .then(res => {
+                if (res.data.errors) {
+                    // redirect to the login page
+                    history.push({
+                        pathname: '/admin/login',
+                    });
+                } else {
+                    setLoggedIn(true);
+                }
+            })
+            .catch(err => {
                 history.push({
                     pathname: '/admin/login',
                 });
-            } else {
-                setLoggedIn(true);
-            }
-        }).catch(err => {
-            history.push({
-                pathname: '/admin/login',
+                console.log(err.response);
             });
-            console.log(err.response);
-        });
     }, []);
 
     const onSearch = () => {
         Axios.post(
             process.env.REACT_APP_ADMIN_SERVER,
-            {query: `mutation FindUserByEmail($email: String!) {
+            {
+                query: `mutation FindUserByEmail($email: String!) {
                 findUser(userEmail: $email) {
                     username,
                     email,
@@ -57,19 +61,22 @@ export default function Administrator() {
                     }
                 }
             }`,
-            variables: {
-                email: search,
-            }},
+                variables: {
+                    email: search,
+                },
+            },
             // {headers: {'Authorization': 'Bearer '+'xxx'}},
-            {withCredentials: true}
-            ).then(res => {
+            { withCredentials: true }
+        )
+            .then(res => {
                 if (res.data.errors) {
                     console.log(res.data.errors[0].message);
                     return;
                 }
                 setSearchResult(res.data.data.findUser);
                 console.log(searchResult);
-            }).catch(err => {
+            })
+            .catch(err => {
                 alert(err.response.data);
             });
     };
@@ -77,31 +84,38 @@ export default function Administrator() {
     return (
         // search box
         <div className="admin">
-            {isLoggedIn && <div>
-                <AdminLogout onClick={() => setLoggedIn(false)}/>
-                <div  className="form">
-                <input
-                    className="searchBox"
-                    value={search}
-                    placeholder="Search a user by email"
-                    onChange={e => setSearch(e.target.value)}
-                />
-                <span>
-                    {search !== '' &&
-                    <button>
-                        <FontAwesomeIcon
-                            className = "fontAwesomeIcon"
-                            icon={faTimesCircle}
-                            onClick={() => setSearch('')} />
-                    </button>
-                    }
-                </span>
-                <button className="searchButton">
-                    <FontAwesomeIcon icon={faSearch} onClick={onSearch} className = "fontAwesomeIcon"/>
-                </button>
+            {isLoggedIn && (
+                <div>
+                    <AdminLogout onClick={() => setLoggedIn(false)} />
+                    <div className="form">
+                        <input
+                            className="searchBox"
+                            value={search}
+                            placeholder="Search a user by email"
+                            onChange={e => setSearch(e.target.value)}
+                        />
+                        <span>
+                            {search !== '' && (
+                                <button>
+                                    <FontAwesomeIcon
+                                        className="fontAwesomeIcon"
+                                        icon={faTimesCircle}
+                                        onClick={() => setSearch('')}
+                                    />
+                                </button>
+                            )}
+                        </span>
+                        <button className="searchButton">
+                            <FontAwesomeIcon
+                                icon={faSearch}
+                                onClick={onSearch}
+                                className="fontAwesomeIcon"
+                            />
+                        </button>
+                    </div>
                 </div>
-            </div>}
-            {searchResult && <SearchResult info={searchResult}/>} 
+            )}
+            {searchResult && <SearchResult info={searchResult} />}
         </div>
-    )
+    );
 }

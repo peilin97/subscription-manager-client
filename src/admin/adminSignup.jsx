@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Axios from 'axios';
 import { useHistory } from 'react-router-dom';
-import Header from '../header/Header'
+import Header from '../header/Header';
 
 export default function AdminSignup() {
     const history = useHistory();
@@ -19,7 +19,8 @@ export default function AdminSignup() {
         }
         Axios.post(
             process.env.REACT_APP_ADMIN_SERVER,
-            {query: `mutation CreateAdmin(
+            {
+                query: `mutation CreateAdmin(
                 $email: String!,
                 $username: String!,
                 $password: String!,
@@ -35,83 +36,100 @@ export default function AdminSignup() {
                     email,
                     username
                 }
-            }`, variables: {
-                email: email,
-                username: username,
-                password: password,
-                invitationCode: invitationCode
-            }},
-                {withCredentials: true}
-        ).then(res => {
-            if (res.data.errors) {
-                alert(res.data.errors[0].message);
-                return;
-            }
-            // redirect to the admin main page
-            history.push({
-                pathname: '/admin',
+            }`,
+                variables: {
+                    email: email,
+                    username: username,
+                    password: password,
+                    invitationCode: invitationCode,
+                },
+            },
+            { withCredentials: true }
+        )
+            .then(res => {
+                if (res.data.errors) {
+                    alert(res.data.errors[0].message);
+                    return;
+                }
+                // redirect to the admin main page
+                history.push({
+                    pathname: '/admin',
+                });
+            })
+            .catch(err => {
+                console.log(err);
+            })
+            .finally(() => {
+                // reset states
+                setEmail('');
+                setUsername('');
+                setPassword('');
+                setDuplicatePassword('');
+                setInvitationCode('');
             });
-        }).catch(err => {
-            console.log(err);
-        }).finally( () => {
-            // reset states
-            setEmail('');
-            setUsername('');
-            setPassword('');
-            setDuplicatePassword('');
-            setInvitationCode('');
-        });
-    }
-
+    };
 
     return (
         <div>
             <Header />
-    <div className="authContainer">
-        <div className="form">
-            <label htmlFor="email" className="small">Email</label>
-            <input
-                id="email"
-                value={email}
-                onChange={e => setEmail(e.target.value)}
-            />
+            <div className="authContainer">
+                <div className="form">
+                    <label htmlFor="email" className="small">
+                        Email
+                    </label>
+                    <input
+                        id="email"
+                        value={email}
+                        onChange={e => setEmail(e.target.value)}
+                    />
+                </div>
+                <div className="form">
+                    <label htmlFor="username" className="small">
+                        Username
+                    </label>
+                    <input
+                        id="username"
+                        value={username}
+                        onChange={e => setUsername(e.target.value)}
+                    />
+                </div>
+                <div className="form">
+                    <label htmlFor="password" className="small">
+                        Password
+                    </label>
+                    <input
+                        id="password"
+                        type="password"
+                        value={password}
+                        onChange={e => setPassword(e.target.value)}
+                    />
+                </div>
+                <div className="form">
+                    <label htmlFor="duplicatePassword" className="small">
+                        Confirm Password
+                    </label>
+                    <input
+                        id="duplicatePassword"
+                        type="password"
+                        value={duplicatePassword}
+                        onChange={e => setDuplicatePassword(e.target.value)}
+                    />
+                </div>
+                <div className="form">
+                    <label htmlFor="invitationCode" className="small">
+                        Invitation Code
+                    </label>
+                    <input
+                        id="invitationCode"
+                        type="password"
+                        value={invitationCode}
+                        onChange={e => setInvitationCode(e.target.value)}
+                    />
+                </div>
+                <button onClick={signUp} className="authBtn small">
+                    Sign Up
+                </button>
+            </div>
         </div>
-        <div className="form">
-            <label htmlFor="username" className="small">Username</label>
-            <input
-                id="username"
-                value={username}
-                onChange={e => setUsername(e.target.value)}
-            />
-        </div>
-        <div className="form">
-            <label htmlFor="password" className="small">Password</label>
-            <input
-                id="password"
-                type="password"
-                value={password}
-                onChange={e => setPassword(e.target.value)}
-            />
-        </div>
-        <div className="form">
-            <label htmlFor="duplicatePassword" className="small">Confirm Password</label>
-            <input
-                id="duplicatePassword"
-                type="password"
-                value={duplicatePassword}
-                onChange={e => setDuplicatePassword(e.target.value)}
-            />
-        </div>
-        <div className="form">
-            <label htmlFor="invitationCode" className="small">Invitation Code</label>
-            <input
-                id="invitationCode"
-                value={invitationCode}
-                onChange={e => setInvitationCode(e.target.value)}
-            />
-        </div>
-        <button onClick={signUp} className="authBtn small">Sign Up</button>
-    </div>
-    </div>
-    )
+    );
 }
