@@ -7,8 +7,8 @@ import {
     setLoggedIn,
 } from './userSlice.js';
 
-// const URL = 'https://subscription-manager-server.herokuapp.com/user';
-const URL = 'http://localhost:5000/user';
+const URL = 'https://subscription-manager-server.herokuapp.com/user';
+// const URL = 'http://localhost:5000/user';
 
 export default function UserChangePassword() {
     const history = useHistory();

@@ -7,8 +7,9 @@ import {
     setLoggedIn,
 } from './userSlice.js';
 import './user.css';
-// const URL = 'https://subscription-manager-server.herokuapp.com/user';
-const URL = 'http://localhost:5000/user';
+
+const URL = 'https://subscription-manager-server.herokuapp.com/user';
+// const URL = 'http://localhost:5000/user';
 
 export default function UserEditProfile () {
     const history = useHistory();

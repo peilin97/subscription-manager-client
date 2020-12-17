@@ -4,8 +4,8 @@ import Axios from 'axios';
 import Header from '../header/Header'
 import './home.css';
 
-// const URL = 'https://subscription-manager-server.herokuapp.com/user';
-const URL = 'http://localhost:5000/user';
+const URL = 'https://subscription-manager-server.herokuapp.com/user';
+// const URL = 'http://localhost:5000/user';
 
 export default function Home() {
 

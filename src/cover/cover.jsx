@@ -22,7 +22,7 @@ const URL = 'http://localhost:5000/user';
 // implement UnsplashAPI for users to search photos and change the cover
 export default function Cover() {
     const cover = useSelector(selectCover);
-    console.log(cover);
+    // console.log(cover);
     const [showPopover, setShowPopover] = useState(false);
     // const [addCover, toggleAddCover] = useState(false);
     // const [cover, setCover] = useState('');

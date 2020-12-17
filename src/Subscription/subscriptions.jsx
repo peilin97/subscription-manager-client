@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
 import Axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
@@ -10,8 +10,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt, faEdit } from '@fortawesome/free-solid-svg-icons';
 import './subscriptions.css';
 
-// const URL = 'https://subscription-manager-server.herokuapp.com/user';
-const URL = 'http://localhost:5000/user';
+const URL = 'https://subscription-manager-server.herokuapp.com/user';
+// const URL = 'http://localhost:5000/user';
 
 // show all subscriptions sorted by billingdate
 export default function Subscriptions() {

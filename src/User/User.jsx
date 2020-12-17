@@ -19,8 +19,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlusCircle, faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import './user.css';
 
-// const URL = 'https://subscription-manager-server.herokuapp.com/user';
-const URL = 'http://localhost:5000/user';
+const URL = 'https://subscription-manager-server.herokuapp.com/user';
+// const URL = 'http://localhost:5000/user';
 
 export default function User() {
     const history = useHistory();
@@ -78,11 +78,11 @@ export default function User() {
         .then(res => {
             if (res.data.errors) {
                 console.log(res.data.errors);
-                return;
             }
+            console.log(res);
             dispatch(setUsername(res.data.data.getUser.username));
             dispatch(setEmail(res.data.data.getUser.email));
-            console.log(res.data.data.getUser.cover);
+            // console.log(res.data.data.getUser.cover);
             if(res.data.data.getUser.cover) {
                 console.log("cover not null");
                 dispatch(setCover(res.data.data.getUser.cover));
@@ -92,7 +92,7 @@ export default function User() {
             dispatch(setSubscriptions(list));
         })
         .catch(err => {
-            console.log(err.response);
+            console.log(err);
         });
     }, []);
 

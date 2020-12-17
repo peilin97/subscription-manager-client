@@ -7,8 +7,8 @@ import AdminLogout from './adminLogout';
 import SearchResult from './searchResult';
 import './admin.css';
 
-// const URL = 'https://subscription-manager-server.herokuapp.com/admin';
-const URL = 'http://localhost:5000/admin';
+const URL = 'https://subscription-manager-server.herokuapp.com/admin';
+// const URL = 'http://localhost:5000/admin';
 
 export default function Administrator() {
 

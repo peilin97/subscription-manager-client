@@ -7,8 +7,8 @@ import {
 } from '../User/userSlice.js';
 import { useLocation, useHistory } from 'react-router-dom';
 
-// const URL = 'https://subscription-manager-server.herokuapp.com/user';
-const URL = 'http://localhost:5000/user';
+const URL = 'https://subscription-manager-server.herokuapp.com/user';
+// const URL = 'http://localhost:5000/user';
 
 export default function UpdateSub() {
     const history = useHistory();

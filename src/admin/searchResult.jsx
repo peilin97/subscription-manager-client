@@ -1,8 +1,8 @@
 import React from 'react';
 import Axios from 'axios';
 
-// const URL = 'https://subscription-manager-server.herokuapp.com/admin';
-const URL = 'http://localhost:5000/admin';
+const URL = 'https://subscription-manager-server.herokuapp.com/admin';
+// const URL = 'http://localhost:5000/admin';
 
 export default function SearchResult(props) {
 

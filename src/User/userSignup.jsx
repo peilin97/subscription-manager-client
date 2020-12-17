@@ -3,8 +3,8 @@ import Axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import Header from '../header/Header'
 
-// const URL = 'https://subscription-manager-server.herokuapp.com/user';
-const URL = 'http://localhost:5000/user';
+const URL = 'https://subscription-manager-server.herokuapp.com/user';
+// const URL = 'http://localhost:5000/user';
 
 export default function UserSignup() {
     const history = useHistory();
@@ -32,7 +32,6 @@ export default function UserSignup() {
             {
                 query: `mutation createUser($email: String!, $username: String!, 
                 $password: String!) {
-                
                     signup(email: $email, username: $username, 
                     password: $password) {
                         email,
@@ -48,6 +47,7 @@ export default function UserSignup() {
             { withCredentials: true }
             ).then(res => {
                 if (res.data.errors) {
+                    console.log(res.data.errors);
                     alert(res.data.errors[0].message);
                     return;
                 }
@@ -55,16 +55,13 @@ export default function UserSignup() {
                 history.push({
                     pathname: '/user',
                 });
-            })
-            .catch(err => {
-                console.log(err.response.data);
-            })
-            .finally(() => {
                 // reset states
                 setEmail('');
                 setUsername('');
                 setPassword('');
                 setDuplicatePassword('');
+            }).catch(err => {
+                console.log(err.response.data);
             });
     };
 

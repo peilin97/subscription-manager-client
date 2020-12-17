@@ -2,8 +2,8 @@ import React from 'react';
 import Axios from 'axios';
 import { useHistory } from 'react-router-dom';
 
-// const URL = 'https://subscription-manager-server.herokuapp.com/admin';
-const URL = 'http://localhost:5000/admin';
+const URL = 'https://subscription-manager-server.herokuapp.com/admin';
+// const URL = 'http://localhost:5000/admin';
 
 export default function AdminLogout() {
 
