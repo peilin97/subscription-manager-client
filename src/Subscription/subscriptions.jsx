@@ -58,25 +58,26 @@ export default function Subscriptions() {
     }
 
     return (
-    <div>
+    <div className="subscriptions">
         {list && list.map(item => (
             <div id={item.id} className="subItem">
-                <div>{item.name}</div>
-                <div>{item.cost}</div>
-                <div>{item.billingDate}</div>
-                <div>{item.frequency}</div>
-                <div>{item.category}</div>
-                <div>{item.content}</div>
-                <FontAwesomeIcon
-                className = "fontAwesomeIcon"
+                <div className="small">{item.name}</div>
+                <div className="small">{"$ " + item.cost}</div>
+                <div className="small">{item.billingDate}</div>
+                <div className="hide small">{item.frequency}</div>
+                <div className="hide small">{item.category}</div>
+                <div className="hide small">{item.content}</div>
+                <button><FontAwesomeIcon
+                className = "fontAwesomeIcon small"
                 icon={faEdit}
                 onClick={() => editItem(item)}
-                />
-                <FontAwesomeIcon
-                    className = "fontAwesomeIcon"
+                /></button>
+                <button><FontAwesomeIcon
+                    className = "fontAwesomeIcon small"
                     icon={faTrashAlt}
                     onClick={() => deleteItem(item.id)}
-                />
+                /></button>
+                
             </div>
         ))}
     </div>

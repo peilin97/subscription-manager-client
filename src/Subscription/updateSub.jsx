@@ -68,18 +68,17 @@ export default function UpdateSub() {
     };
 
     return (
-        <div>
-            <div>
-                <div>
-                    <label htmlFor="name">Name</label>
+        <div className="authContainer">
+                <div className="form">
+                    <label htmlFor="name" className="small">Name</label>
                     <input
                         required
                         id="name"
                         value={name}
                         onChange={e => setName(e.target.value)} />
                 </div>
-                <div>
-                    <label htmlFor="billingDate">Next Billing Date</label>
+                <div className="form">
+                    <label htmlFor="billingDate" className="small">Next Billing Date</label>
                     <input
                         required
                         id="billingDate"
@@ -88,8 +87,8 @@ export default function UpdateSub() {
                         value={billingDate}
                         onChange={e => setBillingDate(e.target.value)} />
                 </div>
-                <div>
-                    <label htmlFor="frequency">Frequency</label>
+                <div className="form">
+                    <label htmlFor="frequency" className="small">Frequency</label>
                     <select
                         required
                         id="frequency"
@@ -104,8 +103,8 @@ export default function UpdateSub() {
                         <option value="YEARLY">YEARLY</option>
                     </select>
                 </div>
-                <div>
-                    <label htmlFor="cost">Cost</label>
+                <div  className="form">
+                    <label htmlFor="cost" className="small">Cost</label>
                     <input
                         required
                         id="cost"
@@ -115,8 +114,8 @@ export default function UpdateSub() {
                         value={cost}
                         onChange={e => setCost(e.target.value)} />
                 </div>
-                <div>
-                    <label htmlFor="category">Category</label>
+                <div className="form">
+                    <label htmlFor="category" className="small">Category</label>
                     <select
                         required
                         id="category"
@@ -127,8 +126,7 @@ export default function UpdateSub() {
                         <option value="SERVICE">SERVICE</option>
                     </select>
                 </div>
-            </div>
-            <button onClick={editSubscription}>Update</button>
+            <button onClick={editSubscription} className="authBtn small">Update</button>
         </div>
     );
 }

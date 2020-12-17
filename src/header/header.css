@@ -1,0 +1,26 @@
+.navbar {
+    position: relative;
+    padding-left: 20px;
+    padding-right: 20px;
+    transition: height 250ms ease 0s;
+    background-color:rgb(255, 254, 252);
+    height: 80px;
+    width: 100%;
+    overflow: hidden;
+    box-shadow: none;
+}
+
+.createBtn {
+    margin-right: 10px;
+}
+
+.dropdownItem {
+    padding: 4px 10px;
+    width: auto;
+    height: auto;
+    background-color: white;
+}
+
+.hover:hover {
+    background-color: whitesmoke;
+}

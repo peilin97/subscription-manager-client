@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import Axios from 'axios';
@@ -9,12 +9,14 @@ import {
     setUsername,
     selectEmail,
     setCover,
+    selectLoggedIn,
+    setLoggedIn,
 } from './userSlice.js';
 import Subscriptions from '../Subscription/subscriptions';
-import UserLogout from './userLogout';
 import Cover from '../cover/cover';
+import Dropdown from 'react-bootstrap/Dropdown';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
+import { faPlusCircle, faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import './user.css';
 
 // const URL = 'https://subscription-manager-server.herokuapp.com/user';
@@ -24,9 +26,11 @@ export default function User() {
     const history = useHistory();
     const username = useSelector(selectUsername);
     const email = useSelector(selectEmail);
-    const [isLoggedIn, setLoggedIn] = useState(false);
+    const loggedIn = useSelector(selectLoggedIn);
+    // const [isLoggedIn, setLoggedIn] = useState(false);
     
     const dispatch = useDispatch();
+
     // check if a user is logged in or not
     useEffect(()=> {
         Axios.post(
@@ -45,11 +49,11 @@ export default function User() {
                 });
                 // alert(res.data.errors[0].message);
             } else {
-                setLoggedIn(true);
+                dispatch(setLoggedIn(true));
             }
         }).catch(err => {
             history.push({
-                pathname: '/admin/login',
+                pathname: '/user/login',
             });
             console.log(err.response);
         });
@@ -109,28 +113,56 @@ export default function User() {
             pathname: '/user/edit/password',
         });
     }
+
+    const logout = () => {
+        dispatch(setLoggedIn(true));
+        Axios.post(
+            URL,
+            {
+                query: `mutation  LogOutUser {
+                logout
+            }`,
+            },
+            { withCredentials: true }
+        ).then(res => {
+                // redirect to the home page
+                history.push({
+                    pathname: '/',
+                });
+        }).catch(() => {
+            history.push({
+                pathname: '/',
+            });
+        });
+    };
     
     return (
         <div>
-            {isLoggedIn &&
+            {loggedIn &&
             <div>
                 <Cover />
-                <div className="controlBtns">
-                    <button 
-                    className = "editProfileBtn btn"
-                    onClick={editProfile}>Edit Profile</button>
-                    <button 
-                    className = "changePasswordBtn btn"
-                    onClick={changePassword}>Change Password</button>
-                    <UserLogout
-                    className = "logoutBtn btn"
-                    onClick={() => setLoggedIn(false)}/>
+                <div className="userBtns">
+                <Dropdown>
+                    <Dropdown.Toggle variant="success" id="dropdown-basic">
+                        <FontAwesomeIcon
+                            className = "fontAwesomeIcon bigFontAwesome profileBtn"
+                            icon={faUserCircle} />
+                    </Dropdown.Toggle>
+                    <Dropdown.Menu  className="dropdownMenu">
+                        <Dropdown.Item onClick={editProfile}>Edit profile</Dropdown.Item>
+                        <Dropdown.Item onClick={changePassword}>Change password</Dropdown.Item>
+                        <Dropdown.Item onClick={logout}>Log out</Dropdown.Item>
+                    </Dropdown.Menu>
+                </Dropdown>
+                <button>
                     <FontAwesomeIcon
-                        className = "fontAwesomeIcon createBtn btn"
+                        className = "fontAwesomeIcon bigFontAwesome"
                         icon={faPlusCircle}
                         onClick={createSub} />
+                    </button>
+                    </div>                  
                     <Subscriptions />
-                </div>
+                
             </div>}
         </div>
     );

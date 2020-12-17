@@ -2,4 +2,21 @@
     display: flex;
     width: 100%;
     justify-content: space-evenly;
+    align-items: center;
+    flex-wrap: wrap;
+    color:rgb(126, 177, 126);
 }
+
+.subscriptions {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+}
+
+h1 {
+    margin-top: 50px;
+}
+

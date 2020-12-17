@@ -1,6 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
 import { useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+    selectLoggedIn,
+    setLoggedIn,
+} from '../User/userSlice.js';
+import './subscriptions.css';
 
 // const URL = 'https://subscription-manager-server.herokuapp.com/user';
 const URL = 'http://localhost:5000/user';
@@ -12,6 +18,28 @@ export default function CreateSub() {
     const [category, setCategory] = useState('CONTENT');
     const [frequency, setFrequency] = useState("DAILY");
     const [cost, setCost] = useState(0.01);
+    const loggedIn = useSelector(selectLoggedIn);
+    const dispatch = useDispatch();
+
+    // check if a user is logged in or not
+    // useEffect(()=> {
+    //     Axios.post(
+    //         URL,
+    //         {query: `query User {
+    //             user {
+    //                 username
+    //             }
+    //         }`,},
+    //         { withCredentials: true }
+    //     ).then(res => {
+    //         if (res.data.errors) {
+    //             history.push({pathname: '/',})
+    //         }
+    //     }).catch(err  => {
+    //         console.log(err.response);
+    //         history.push({pathname: '/',})
+    //     });
+    // }, []);
 
     const createSubscription = () => {
         // check the validaity name and billing date
@@ -65,19 +93,18 @@ export default function CreateSub() {
 
     return (
         <div>
-            <h1>Subscriptions</h1>
-                <h2> Create a new Subscription</h2>
-                <div>
-                    <div>
-                        <label htmlFor="name">Name</label>
+            <h1>Create a new subscription</h1>
+                <div className="authContainer">
+                    <div className="form">
+                        <label htmlFor="name" className="small">Name</label>
                         <input
                             required
                             id="name"
                             value={name}
                             onChange={e => setName(e.target.value)} />
                     </div>
-                    <div>
-                        <label htmlFor="billingDate">Next Billing Date</label>
+                    <div className="form">
+                        <label htmlFor="billingDate" className="small">Billing Date</label>
                         <input
                             required
                             id="billingDate"
@@ -86,8 +113,8 @@ export default function CreateSub() {
                             value={billingDate}
                             onChange={e => setBillingDate(e.target.value)} />
                     </div>
-                    <div>
-                        <label htmlFor="frequency">Frequency</label>
+                    <div className="form">
+                        <label htmlFor="frequency" className="small">Frequency</label>
                         <select
                             required
                             id="frequency"
@@ -102,8 +129,8 @@ export default function CreateSub() {
                             <option value="YEARLY">YEARLY</option>
                         </select>
                     </div>
-                    <div>
-                        <label htmlFor="cost">Cost</label>
+                    <div className="form">
+                        <label htmlFor="cost" className="small">Cost</label>
                         <input
                             required
                             id="cost"
@@ -113,8 +140,8 @@ export default function CreateSub() {
                             value={cost}
                             onChange={e => setCost(e.target.value)} />
                     </div>
-                    <div>
-                        <label htmlFor="category">Category</label>
+                    <div className="form">
+                        <label htmlFor="category" className="small">Category</label>
                         <select
                             required
                             id="category"
@@ -126,7 +153,7 @@ export default function CreateSub() {
                         </select>
                     </div>
                 </div>
-            <button onClick={createSubscription}>Create</button>
+            <button onClick={createSubscription} className="authBtn small">Create</button>
         </div>
     );
 }

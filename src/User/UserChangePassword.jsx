@@ -45,9 +45,11 @@ export default function UserChangePassword() {
     }
 
     return (
-    <div>
         <div>
-            <label htmlFor="password">Password:</label>
+            <h1>Change your password</h1>
+    <div className="authContainer">
+        <div className="form">
+            <label htmlFor="password" className="small">Password</label>
             <input
                 id="password"
                 type="password"
@@ -55,8 +57,8 @@ export default function UserChangePassword() {
                 onChange={e => setPassword(e.target.value)}
             />
         </div>
-        <div>
-            <label htmlFor="duplicatePassword">Confirm Password:</label>
+        <div className="form">
+            <label htmlFor="duplicatePassword" className="small">Confirm Password</label>
             <input
                 id="duplicatePassword"
                 type="password"
@@ -64,7 +66,8 @@ export default function UserChangePassword() {
                 onChange={e => setDuplicatePassword(e.target.value)}
             />
         </div>
-        <button onClick={changePassword}>Update</button>
+        <button onClick={changePassword} className="authBtn small">Update</button>
+    </div>
     </div>
     )
 }

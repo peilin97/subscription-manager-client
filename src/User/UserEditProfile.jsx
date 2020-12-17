@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Axios from 'axios';
 import { useLocation, useHistory } from 'react-router-dom';
-
+import './user.css';
 // const URL = 'https://subscription-manager-server.herokuapp.com/user';
 const URL = 'http://localhost:5000/user';
 
@@ -59,23 +59,26 @@ export default function UserEditProfile () {
 
     return (
         <div>
-            <div>
-                <label htmlFor="email">Email:</label>
+            <h1> Update your profile</h1>
+        <div className="authContainer editProfile">
+            <div className="form">
+                <label htmlFor="email" className="small">Email</label>
                 <input
                     id="email"
                     value={email}
                     onChange={e => setEmail(e.target.value)}
                 />
             </div>
-            <div>
-                <label htmlFor="username">Username:</label>
+            <div className="form">
+                <label htmlFor="username" className="small">Username</label>
                 <input
                     id="username"
                     value={username}
                     onChange={e => setUsername(e.target.value)}
                 />
             </div>
-            <button onClick={EditUserProfile}>Update</button>
+            <button onClick={EditUserProfile} className="authBtn small">Update</button>
+        </div>
         </div>
     );
 }

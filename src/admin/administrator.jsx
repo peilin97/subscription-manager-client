@@ -5,6 +5,7 @@ import { faTimesCircle, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { useHistory } from 'react-router-dom';
 import AdminLogout from './adminLogout';
 import SearchResult from './searchResult';
+import './admin.css';
 
 // const URL = 'https://subscription-manager-server.herokuapp.com/admin';
 const URL = 'http://localhost:5000/admin';
@@ -77,9 +78,10 @@ export default function Administrator() {
 
     return (
         // search box
-        <div>
+        <div className="admin">
             {isLoggedIn && <div>
                 <AdminLogout onClick={() => setLoggedIn(false)}/>
+                <div  className="form">
                 <input
                     className="searchBox"
                     value={search}
@@ -88,17 +90,18 @@ export default function Administrator() {
                 />
                 <span>
                     {search !== '' &&
+                    <button>
                         <FontAwesomeIcon
                             className = "fontAwesomeIcon"
                             icon={faTimesCircle}
                             onClick={() => setSearch('')} />
+                    </button>
                     }
                 </span>
-                <span>
-                    <button className="searchButton">
-                        <FontAwesomeIcon icon={faSearch} onClick={onSearch} />
-                    </button>
-                </span>
+                <button className="searchButton">
+                    <FontAwesomeIcon icon={faSearch} onClick={onSearch} className = "fontAwesomeIcon"/>
+                </button>
+                </div>
             </div>}
             {searchResult && <SearchResult info={searchResult}/>} 
         </div>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Axios from 'axios';
 import { useHistory } from 'react-router-dom';
+import Header from '../header/Header'
 
 // const URL = 'https://subscription-manager-server.herokuapp.com/admin';
 const URL = 'http://localhost:5000/admin';
@@ -67,25 +68,27 @@ export default function AdminSignup() {
 
 
     return (
-    <div>
         <div>
-            <label htmlFor="email">Email:</label>
+            <Header />
+    <div className="authContainer">
+        <div className="form">
+            <label htmlFor="email" className="small">Email</label>
             <input
                 id="email"
                 value={email}
                 onChange={e => setEmail(e.target.value)}
             />
         </div>
-        <div>
-            <label htmlFor="username">Username:</label>
+        <div className="form">
+            <label htmlFor="username" className="small">Username</label>
             <input
                 id="username"
                 value={username}
                 onChange={e => setUsername(e.target.value)}
             />
         </div>
-        <div>
-            <label htmlFor="password">Password:</label>
+        <div className="form">
+            <label htmlFor="password" className="small">Password</label>
             <input
                 id="password"
                 type="password"
@@ -93,8 +96,8 @@ export default function AdminSignup() {
                 onChange={e => setPassword(e.target.value)}
             />
         </div>
-        <div>
-            <label htmlFor="duplicatePassword">Confirm Password:</label>
+        <div className="form">
+            <label htmlFor="duplicatePassword" className="small">Confirm Password</label>
             <input
                 id="duplicatePassword"
                 type="password"
@@ -102,14 +105,16 @@ export default function AdminSignup() {
                 onChange={e => setDuplicatePassword(e.target.value)}
             />
         </div>
-        <div>
-            <label htmlFor="invitationCode">Invitation Code:</label>
+        <div className="form">
+            <label htmlFor="invitationCode" className="small">Invitation Code</label>
             <input
                 id="invitationCode"
                 value={invitationCode}
                 onChange={e => setInvitationCode(e.target.value)}
             />
         </div>
-        <button onClick={signUp}>Sign Up</button>
-    </div>)
+        <button onClick={signUp} className="authBtn small">Sign Up</button>
+    </div>
+    </div>
+    )
 }

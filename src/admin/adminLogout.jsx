@@ -30,6 +30,6 @@ export default function AdminLogout() {
 
     return (
     <div>
-        <button onClick={logout}>Log out</button>
+        <button onClick={logout} className="coverBtn">Log out</button>
     </div>)
 }

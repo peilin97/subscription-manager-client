@@ -7,6 +7,7 @@ export const userSlice = createSlice({
         email: '',
         subscriptions: '',
         cover: '',
+        loggedIn: false,
     },
     reducers: {
         setUsername: (state, action) => {
@@ -20,7 +21,10 @@ export const userSlice = createSlice({
         },
         setCover: (state, action) => {
             state.cover = action.payload;
-        }
+        },
+        setLoggedIn: (state, action) => {
+            state.loggedIn = action.payload;
+        },
     }
 });
 
@@ -29,12 +33,14 @@ export const {
     setEmail,
     setSubscriptions,
     setCover,
+    setLoggedIn,
 } = userSlice.actions;
 
 export const selectUsername = state => state.user.username;
 export const selectEmail = state => state.user.email;
 export const selectSubscriptions = state => state.user.subscriptions;
 export const selectCover = state => state.user.cover;
+export const selectLoggedIn = state => state.user.loggedIn;
 
 
 export default userSlice.reducer;

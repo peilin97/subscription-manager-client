@@ -31,6 +31,7 @@ export default function SearchResult(props) {
 
     return (
     <div>
+        <div className="searchResult small">
         <ul>
             <li>{"username: " + props.info.username}</li>
             <li>{"email: " + props.info.email}</li>
@@ -38,12 +39,14 @@ export default function SearchResult(props) {
                 {"subscriptions: "}
                 <ul>
                     {props.info.subscriptions.map(subscription => (
-                        <li>{subscription.name+", $"+subscription.cost+" per "+subscription.frequency+", next billing date: "+subscription.billingDate +", "+subscription.category}</li>
+
+                        <li>{subscription.name+", $"+subscription.cost+" per "+subscription.frequency+", "+subscription.billingDate +", "+subscription.category}</li>
                     ))}
                 </ul>
             </li>
         </ul>
-        <button onClick={deleteUser}>Delete</button>
+        </div>
+        <button onClick={deleteUser} className="authBtn small">Delete</button>
     </div>
     );
 }

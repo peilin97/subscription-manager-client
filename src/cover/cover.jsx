@@ -181,7 +181,7 @@ export default function Cover() {
                         trigger="click"
                         placement="bottom"
                         overlay={
-                        <Popover id="popover-positioned-bottom"  className="popover">
+                        <Popover id="popover-positioned-bottom"  className="customPopover">
                             {/* search box */}
                             <div>
                                 <input
@@ -229,17 +229,17 @@ export default function Cover() {
                     >
                         <button
                             // onClick={getRandomPhotos}
-                            className="changeBtn"
+                            className="coverBtn"
                         >
                             Change
                         </button>
                     </OverlayTrigger>
-                    <button onClick={removeCover} className="removeBtn">Remove</button> 
+                    <button onClick={removeCover} className="coverBtn">Remove</button> 
                 </div>
             }
             {/* only show add cover button when there's no cover */}
             {cover === '' &&
-                <button onClick={getRandomCover}>
+                <button onClick={getRandomCover} className="coverBtn">
                     Add cover
                 </button>
             }

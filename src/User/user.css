@@ -1,5 +1,14 @@
-.controlBtns{
+.userBtns{
     display: flex;
-    position: fixed;
-    margin-top: 50%;
+}
+
+.dropdown-item {
+    background-color: rgb(126, 177, 126);
+    color: whitesmoke;
+    margin-left: 5px;
+    padding: 3px;
+}
+
+.dropdown-item:hover {
+    background-color: rgb(69, 140, 69);
 }

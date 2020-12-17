@@ -7,9 +7,7 @@ button {
     cursor: pointer;
 }
 
-button
-
-.popover {
+.customPopover {
     width: 530px;
     height: 440px;
     background-color: white;
@@ -21,28 +19,14 @@ button
 
 .coverImg {
     object-fit: cover;
-    height: 30%;
-    position: fixed;
+    height: 200px;
+    position: relative;
     top: 0px;
     width: 100%;
     left: 0;
     right: 0;
     margin: 0;
     padding: 0;
-}
-
-.changeBtn {
-    position: fixed;
-    top: 25%;
-    right: 25%;
-    cursor: pointer;
-}
-
-.removeBtn {
-    position: fixed;
-    top: 25%;
-    right: 10%;
-    cursor: pointer;
 }
 
 .hidden {

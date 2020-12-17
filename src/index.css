@@ -1,0 +1,142 @@
+#root {
+    font-family: 'Padauk', sans-serif;
+    color: #37352F;
+    font-size: 24px;
+}
+
+input {
+  color: #6d6c66;
+  font-size: 16px;
+  line-height: 32px;
+  border: none;
+  background:  rgba(55, 53, 47, 0.08);
+  width: 100%;
+  display: block;
+  resize: none;
+  padding: 0px;
+}
+
+select {
+  color: #6d6c66;
+  font-size: 16px;
+  line-height: 32px;
+  border: none;
+  background:  rgba(55, 53, 47, 0.08);
+  width: 100%;
+  display: block;
+  resize: none;
+  padding: 0px;
+}
+
+label{
+  font-size: 24px;
+  color: #37352F;
+  margin-right: 10px;
+}
+
+button{
+  background-color: transparent;
+  font-family: 'Padauk', sans-serif;
+  color: #37352F;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 4px 10px;
+  border-radius: 3px;
+  transition: background 20ms ease-in 0s;
+  margin-left: 2px;
+  margin-right: 2px;
+  width: auto;
+  height: auto;
+}
+
+button:hover {
+  background-color: rgba(55, 53, 47, 0.08);
+}
+
+button:active {
+  background: rgba(55, 53, 47, 0.16);
+}
+
+a {
+font-family: 'Padauk', sans-serif;
+color: #37352F;
+text-decoration: none;
+font-size: 24px;
+width: auto;
+height: auto;
+}
+
+.flexRow {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.form {
+margin-left: auto;
+margin-right: auto;
+width: 50%;
+display: flex;
+justify-content: center;
+align-items: center;
+margin-bottom: 10px;
+}
+
+.fontAwesomeIcon {
+  color:rgb(126, 177, 126);
+}
+
+.bigFontAwesome {
+  font-size: 1.5em;
+}
+
+.authBtn {
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(126, 177, 126);
+  color: whitesmoke;
+}
+
+.authBtn:hover {
+  color: #37352F;
+}
+
+.authBtn:active {
+  color: #37352F;
+}
+
+.coverBtn {
+  font-size: smaller;
+  float: right;
+  cursor: pointer;
+  background-color: rgb(126, 177, 126);
+  color: whitesmoke;
+}
+
+.coverBtn:hover {
+  color: #37352F;
+}
+
+.coverBtn:active {
+  color: #37352F;
+}
+
+.authContainer {
+  margin-top: 40px;
+}
+
+@media screen and (max-width: 768px) {
+  .hide {
+      display: none;
+  }
+
+  .small {
+    font-size: smaller;
+  }
+}
+  
