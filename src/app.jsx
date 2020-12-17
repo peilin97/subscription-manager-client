@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Home from './home/Home';
 import CreateSubscription from './Subscription/createSub';
 import UpdateSubscription from './Subscription/updateSub';
-import Cover from './cover/cover';
 import Administrator from './admin/administrator';
 import AdminSignup from './admin/adminSignup';
 import AdminLogin from './admin/adminLogin';
@@ -25,9 +24,6 @@ export default function App() {
                 </Route>
                 <Route path="/admin">
                     <Administrator />
-                </Route>
-                <Route path="/cover">
-                    <Cover />
                 </Route>
                 <Route path="/user/login">
                     <UserLogin />

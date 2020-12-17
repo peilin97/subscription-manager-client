@@ -33,30 +33,32 @@ export default function User() {
 
     // check if a user is logged in or not
     useEffect(()=> {
-        Axios.post(
-            URL,
-            {query: `query User {
-                user {
-                    username
+        if (!loggedIn) {
+            Axios.post(
+                URL,
+                {query: `query User {
+                    user {
+                        username
+                    }
+                }`,},
+                { withCredentials: true }
+            ).then(res => {
+                if (res.data.errors) {
+                    // redirect to the login page
+                    history.push({
+                        pathname: '/user/login',
+                    });
+                    // alert(res.data.errors[0].message);
+                } else {
+                    dispatch(setLoggedIn(true));
                 }
-            }`,},
-            { withCredentials: true }
-        ).then(res => {
-            if (res.data.errors) {
-                // redirect to the login page
+            }).catch(err => {
                 history.push({
                     pathname: '/user/login',
                 });
-                // alert(res.data.errors[0].message);
-            } else {
-                dispatch(setLoggedIn(true));
-            }
-        }).catch(err => {
-            history.push({
-                pathname: '/user/login',
+                console.log(err.response);
             });
-            console.log(err.response);
-        });
+        }
     }, []);
 
     useEffect(()=>{Axios.post(

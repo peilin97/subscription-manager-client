@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimesCircle, faSearch } from '@fortawesome/free-solid-svg-icons';
@@ -18,30 +18,31 @@ export default function Administrator() {
     const [searchResult, setSearchResult] = useState(null);
 
     // check if an administrator is logged in or not
-    Axios.post(
-        URL,
-        {query: `query Administrator {
-            administrator {
-                username
+    useEffect(()=>{
+        Axios.post(
+            URL,
+            {query: `query Administrator {
+                administrator {
+                    username
+                }
+            }`,},
+            {withCredentials: true}
+        ).then(res => {
+            if (res.data.errors) {
+                // redirect to the login page
+                history.push({
+                    pathname: '/admin/login',
+                });
+            } else {
+                setLoggedIn(true);
             }
-        }`,},
-        {withCredentials: true}
-    ).then(res => {
-        if (res.data.errors) {
-            // redirect to the login page
+        }).catch(err => {
             history.push({
                 pathname: '/admin/login',
             });
-            // alert(res.data.errors[0].message);
-        } else {
-            setLoggedIn(true);
-        }
-    }).catch(err => {
-        history.push({
-            pathname: '/admin/login',
+            console.log(err.response);
         });
-        console.log(err.response);
-    });
+    }, []);
 
     const onSearch = () => {
         Axios.post(

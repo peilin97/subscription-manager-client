@@ -1,5 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+    selectLoggedIn,
+    setLoggedIn,
+} from '../User/userSlice.js';
 import { useLocation, useHistory } from 'react-router-dom';
 
 // const URL = 'https://subscription-manager-server.herokuapp.com/user';
@@ -7,13 +12,59 @@ const URL = 'http://localhost:5000/user';
 
 export default function UpdateSub() {
     const history = useHistory();
-    const location = useLocation();
-    const id  = location.state.sub.id;
-    const [name, setName] = useState(location.state.sub.name);
-    const [billingDate, setBillingDate] = useState(location.state.sub.billingDate);
-    const [category, setCategory] = useState(location.state.sub.category);
-    const [frequency, setFrequency] = useState(location.state.sub.frequency);
-    const [cost, setCost] = useState(location.state.sub.cost);
+    const location = useLocation();    
+    const [id, setId]  = useState('');
+    const [name, setName] = useState('');
+    const [billingDate, setBillingDate] = useState('');
+    const [category, setCategory] = useState('');
+    const [frequency, setFrequency] = useState('');
+    const [cost, setCost] = useState('');
+    // const id  = location.state.sub.id;
+    // const [name, setName] = useState(location.state.sub.name);
+    // const [billingDate, setBillingDate] = useState(location.state.sub.billingDate);
+    // const [category, setCategory] = useState(location.state.sub.category);
+    // const [frequency, setFrequency] = useState(location.state.sub.frequency);
+    // const [cost, setCost] = useState(location.state.sub.cost);
+    const loggedIn = useSelector(selectLoggedIn);
+    const dispatch = useDispatch();
+
+    // check if a user is logged in or not
+    useEffect(()=> {
+        if (!loggedIn) {
+            Axios.post(
+                URL,
+                {query: `query User {
+                    user {
+                        username
+                    }
+                }`,},
+                { withCredentials: true }
+            ).then(res => {
+                if (res.data.errors) {
+                    history.push({pathname: '/',});
+                } else {
+                    dispatch(setLoggedIn(true));
+                }
+            }).catch(err  => {
+                console.log(err.response);
+                history.push({pathname: '/',})
+            });
+        }
+    }, []);
+
+    // check location.state
+    useEffect(() => {
+        if (location.state === undefined) {
+            history.push({pathname: '/',});
+            return;
+        }
+        setId(location.state.sub.id);
+        setName(location.state.sub.name);
+        setBillingDate(location.state.sub.billingDate);
+        setCategory(location.state.sub.category);
+        setFrequency(location.state.sub.frequency);
+        setCost(location.state.sub.cost);
+    }, []);
 
     const editSubscription = () => {
         // check the validaity name and billing date

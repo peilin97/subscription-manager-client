@@ -1,6 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
 import { useLocation, useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+    selectLoggedIn,
+    setLoggedIn,
+} from './userSlice.js';
 import './user.css';
 // const URL = 'https://subscription-manager-server.herokuapp.com/user';
 const URL = 'http://localhost:5000/user';
@@ -10,6 +15,31 @@ export default function UserEditProfile () {
     const location = useLocation();
     const [email, setEmail] = useState(location.state.email);
     const [username, setUsername] = useState(location.state.username);
+    const loggedIn = useSelector(selectLoggedIn);
+    const dispatch = useDispatch();
+
+    useEffect(()=> {
+        if (!loggedIn) {
+            Axios.post(
+                URL,
+                {query: `query User {
+                    user {
+                        username
+                    }
+                }`,},
+                { withCredentials: true }
+            ).then(res => {
+                if (res.data.errors) {
+                    history.push({pathname: '/',})
+                } else {
+                    dispatch(setLoggedIn(true));
+                }
+            }).catch(err  => {
+                console.log(err.response);
+                history.push({pathname: '/',})
+            });
+        }
+    }, []);
 
     const EditUserProfile = () => {
         if (username === '') {

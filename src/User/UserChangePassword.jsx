@@ -1,6 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
 import { useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+    selectLoggedIn,
+    setLoggedIn,
+} from './userSlice.js';
 
 // const URL = 'https://subscription-manager-server.herokuapp.com/user';
 const URL = 'http://localhost:5000/user';
@@ -9,6 +14,31 @@ export default function UserChangePassword() {
     const history = useHistory();
     const [password, setPassword] = useState('');
     const [duplicatePassword, setDuplicatePassword] = useState('');
+    const loggedIn = useSelector(selectLoggedIn);
+    const dispatch = useDispatch();
+
+    useEffect(()=> {
+        if (!loggedIn) {
+            Axios.post(
+                URL,
+                {query: `query User {
+                    user {
+                        username
+                    }
+                }`,},
+                { withCredentials: true }
+            ).then(res => {
+                if (res.data.errors) {
+                    history.push({pathname: '/',})
+                } else {
+                    dispatch(setLoggedIn(true));
+                }
+            }).catch(err  => {
+                console.log(err.response);
+                history.push({pathname: '/',})
+            });
+        }
+    }, []);
 
     const changePassword = () => {
         if (password !== duplicatePassword) {

@@ -76,6 +76,7 @@ button {
     overflow: hidden;
     white-space: nowrap;
     width: 80%;
+    font-size: small;
 }
 
 .searchBox {

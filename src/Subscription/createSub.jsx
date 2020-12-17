@@ -22,24 +22,28 @@ export default function CreateSub() {
     const dispatch = useDispatch();
 
     // check if a user is logged in or not
-    // useEffect(()=> {
-    //     Axios.post(
-    //         URL,
-    //         {query: `query User {
-    //             user {
-    //                 username
-    //             }
-    //         }`,},
-    //         { withCredentials: true }
-    //     ).then(res => {
-    //         if (res.data.errors) {
-    //             history.push({pathname: '/',})
-    //         }
-    //     }).catch(err  => {
-    //         console.log(err.response);
-    //         history.push({pathname: '/',})
-    //     });
-    // }, []);
+    useEffect(()=> {
+        if (!loggedIn) {
+            Axios.post(
+                URL,
+                {query: `query User {
+                    user {
+                        username
+                    }
+                }`,},
+                { withCredentials: true }
+            ).then(res => {
+                if (res.data.errors) {
+                    history.push({pathname: '/',})
+                } else {
+                    dispatch(setLoggedIn(true));
+                }
+            }).catch(err  => {
+                console.log(err.response);
+                history.push({pathname: '/',})
+            });
+        }
+    }, []);
 
     const createSubscription = () => {
         // check the validaity name and billing date
